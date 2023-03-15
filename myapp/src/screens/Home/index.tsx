@@ -1,11 +1,13 @@
 import { View, Button, Alert } from 'react-native'
 import { useState } from 'react'
 import Animated, {
+  // Estilos de animações
   useAnimatedStyle,
   // Ele é reativo, se esse valor muda, acaba que reflete no estilo da nossa animação a onde ele esta sendo usado, ou seja agora a animação é dinamica de acordo com um dado da nossa aplicação passado para nossa animação. E para que a animação seja fluida é acontecido em threads diferentes, temos uma thread do JS e uma thread da UI do usuario que é a onde acontece a animação, igual no js web com os workers threads, a onde coisas pesadas por exemplo leitura de arquivo no PC e aqui no casso é a animação acontecem em sub threads do Smartphone
   useSharedValue,
   // Para fazer as transições de quanto ate quanto, a duração
   withTiming,
+  // Que tipo de animação
   Easing,
   withSpring,
   // Eu posso escolher a onde que eu quero rodar a minha animação, se eu quero rodar na thread do JS ou na thread da UI
@@ -28,10 +30,12 @@ import { Ball } from '../../components/Ball'
 
 export function Home() {
   const [isActive, setIsActive] = useState(false)
+  
   const scale = useSharedValue(1)
   const rotation = useSharedValue(0)
   const position = useSharedValue(0)
 
+  // Animação
   function handleAnimation() {
     if (scale.value === 1) {
       scale.value = withTiming(1.5, {
@@ -47,6 +51,7 @@ export function Home() {
     }
   }
 
+  // Gestos
   const onTap = Gesture.Tap()
     .numberOfTaps(2)
     .onStart(() => {
@@ -104,9 +109,9 @@ export function Home() {
     .onEnd(event => {
       position.value = withTiming(0)
       runOnJS(setIsActive)(false)
-
     })
 
+  // Estilo de animações, no caso aqui somente o transform
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [
       {
@@ -132,15 +137,19 @@ export function Home() {
 
       {/* Usar tudo e ao mesmo tempo Simultaneous */}
       {/* <GestureDetector gesture={Gesture.Simultaneous(onLongPress, onPan)}> */}
-
+      {/* Animação sem o Skia */}
       {/* 
-      <GestureDetector gesture={Gesture.Simultaneous(onLongPress, onPan)}>
-        <Animated.View style={[styles.element, animatedStyles]} />
-      </GestureDetector>
-      <Button title="Animar" onPress={handleAnimation} /> */}
 
+        <GestureDetector gesture={Gesture.Simultaneous(onLongPress, onPan)}>
+          <Animated.View style={[styles.element, animatedStyles]} />
+        </GestureDetector>
+        <Button title="Animar" onPress={handleAnimation} /> 
+      
+      */}
+
+      {/* Com Skia */}
       <GestureDetector gesture={onPanButton}>
-        <Animated.View style={[animatedStyles, {zIndex: 1}]}>
+        <Animated.View style={[animatedStyles, { zIndex: 1 }]}>
           <Ball isActive={isActive} />
         </Animated.View>
       </GestureDetector>

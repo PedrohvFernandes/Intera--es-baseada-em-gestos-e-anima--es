@@ -25,6 +25,7 @@ export function Ball({ isActive }: Props) {
   const circleRadiusTwo = useValue(40)
   const circleRadiusThree = useValue(20)
 
+  // Intercambio de valores com o useEffect, com isso ele fica mudando a animações constantemente
   useSharedValueEffect(() => {
     circleRadiusOne.current = circleRadiusOnSharedValue.value
   }, circleRadiusOnSharedValue)
@@ -54,7 +55,9 @@ export function Ball({ isActive }: Props) {
   }, [isActive])
 
   return (
+    // Canvas é usado para desenhar algo na tela
     <Canvas style={{ width: 200, height: 200 }}>
+      {/* Agrupa os objetos dos desenhos, no caso aqui é circulo e aplica 0.8 de opacidade */}
       <Group opacity={0.8}>
         <Circle cx={100} cy={100} r={circleRadiusOne} color={COLOR}>
           <BlurMask blur={blur} style="normal" />
@@ -66,6 +69,7 @@ export function Ball({ isActive }: Props) {
       </Group>
       
       <Circle cx={100} cy={100} r={circleRadiusThree} color={COLOR}>
+        {/* A ordem aqui importa, o blur vem primeiro, depois a bolinha branca dentro do circulo */}
         <BlurMask blur={blur} style="normal" />
         <Paint style="stroke" strokeWidth={10} color="white" opacity={0.5} />
       </Circle>
