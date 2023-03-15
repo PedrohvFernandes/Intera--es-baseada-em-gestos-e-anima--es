@@ -48,7 +48,7 @@ export function Ball({ isActive }: Props) {
 
       runTiming(blur, 0, {easing: Easing.bounce})
       runTiming(circleRadiusOne, 60, {easing: Easing.elastic(3), duration: 900})
-      runTiming(circleRadiusTwo, 45, {easing: Easing.elastic(3), duration: 700})
+      runTiming(circleRadiusTwo, 40, {easing: Easing.elastic(3), duration: 700})
       runTiming(circleRadiusThree, 20, {easing: Easing.elastic(3), duration: 500})
     }
   }, [isActive])
