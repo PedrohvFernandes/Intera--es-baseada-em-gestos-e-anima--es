@@ -32,19 +32,23 @@ export function Ball({ isActive }: Props) {
 
   useEffect(() => {
     if (isActive) {
+      // Pra ficar repetindo o efeito de animação, duração da animação e se é infinito
       circleRadiusOnSharedValue.value = withRepeat(
         withTiming(100, {
           duration: 1000
         }),
+        // Repetindo animação infinitamente
         -1,
         true
       )
 
+      // Efeitos de animação
       runTiming(blur, 2, {easing: Easing.bounce})
       runTiming(circleRadiusOne, 80, {easing: Easing.elastic(3), duration: 900})
       runTiming(circleRadiusTwo, 55, {easing: Easing.elastic(3), duration: 700})
       runTiming(circleRadiusThree, 25, {easing: Easing.elastic(3), duration: 500})
     } else {
+      // Reseta a animação
       circleRadiusOnSharedValue.value = withTiming(60)
 
       runTiming(blur, 0, {easing: Easing.bounce})

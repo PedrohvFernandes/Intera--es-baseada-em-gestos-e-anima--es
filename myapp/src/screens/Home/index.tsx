@@ -30,7 +30,7 @@ import { Ball } from '../../components/Ball'
 
 export function Home() {
   const [isActive, setIsActive] = useState(false)
-  
+
   const scale = useSharedValue(1)
   const rotation = useSharedValue(0)
   const position = useSharedValue(0)
@@ -114,6 +114,7 @@ export function Home() {
   // Estilo de animações, no caso aqui somente o transform
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [
+      // Propriedades de transformação, a gente passa a const de useSharedValue que pega os valores dinamicamente nos gestos feitos e passa pra cada propriedade do transform.
       {
         // scale: 1 --> fixo
         scale: scale.value
